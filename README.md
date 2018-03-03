@@ -14,13 +14,13 @@ Easiest setup ever!
 
 First of all, make sure you have Status installed. The latest android builds can be found [here](http://artifacts.status.im:8081/artifactory/nightlies-local/). If you require an iOS TestFlight invite, please join our [chat](https://chat.status.im/) and ping me @cryptowanderer and I will add you to our list of testers.
 
-Once installed, open the chat with `Console` and select the `@browse` suggestion just above the keyboard input. Naviagte to `https://andytudhope.github.io/StatusSeekers/` and play to your heart's content. 
+Once installed, open the chat with `Console` and select the `@browse` suggestion just above the keyboard input. Naviagte to `https://andytudhope.github.io/StatusSeekers/` and play to your heart's content.
 
-We have not yet implemented the NFT collectible part yet, and are looking for help with rendering images in the frontend, on resource-restricted devices using js. There are essentially 2 approaches we can take, depending on ease and performance. 
+We have not yet implemented the NFT collectible part yet, and are looking for help with rendering images in the frontend, on resource-restricted devices using js. There are essentially 2 approaches we can take, depending on ease and performance.
 
-1. Use [processingjs](http://processingjs.org/) to render the images on the frontend. Each new level corresponds to a new dimension or attribute to the virtual creature being created as you wonder through the physical structure. 
+1. Use [processingjs](http://processingjs.org/) to render the images on the frontend. Each new level corresponds to a new dimension or attribute to the virtual creature being created as you wonder through the physical structure.
 
-2. Use the seed drawn by the user that is used to construct the first 40 bits of the tokenID, and then put that through a program like DeepDream 12 times with certain features turned on/off depending on the info returned from the new tokenLevel. 
+2. Use the seed drawn by the user that is used to construct the first 40 bits of the tokenID, and then put that through a program like DeepDream 12 times with certain features turned on/off depending on the info returned from the new tokenLevel.
 
 ### Getting Set Up Locally
 
@@ -32,7 +32,7 @@ Run `status-dev-cli scan` to ensure that the cli tool can talk to your device/em
 
 Start Ganache once all of that is done (or `testrpc`, or just `truffle develop` depending on your preference).
 
-Clone this repo and do the necessary node things: 
+Clone this repo and do the necessary node things:
 
 ```
 git clone https://github.com/andytudhope/StatusSeekers.git && cd StatusSeekers/
@@ -61,12 +61,16 @@ We're finally ready to run the actual app and have it talk to our simple smart c
 IP=<DEVICE-IP> npm run start
 ```
 
+##### Use 'create-react-app' live reloading when developing locally
+
+Comment out lines 19 and 114 (all lines mentioning `ModuleScopePlugin`) from the `./node_modules/react-scripts/config/webpack.config.dev.js` file.
+
 Happy hunting!
 
 ## Sketch of The Seeker Game
 
 Step 1: Show up at the event and download Status.   
-Step 2: Draw a seed and take a photo of it using the Status Seekers DApp. 
+Step 2: Draw a seed and take a photo of it using the Status Seekers DApp.
 (Step 2a: This gets submitted to our NonFungibleCollectible contract and is used to set the first 40bits of your unique token)  
 Step 3: Explore and interact with the #ArtProject structure (a klein bottle!)  
 Step 4: Find QR codes hidden around it.  
@@ -79,6 +83,3 @@ Step 6: Gaze in wonder at your 12-dimensional crypto-creature-creation after hav
 You'll notice that the StatusSeekers contract is fully reusable. Essentially the idea there is that the owner can add any 12 keyWords they like. We can then add the rewardKeyWords, which are hashed (with a 256-bit nonce), in the correct order and - when someone thinks they have the right order, they can submit it for verification to the contract. The #ArtProject is about a really cool bridge, sure, but the vision is definitely longer term and revolves around setting up a whole decentralized artistic community and we want to play this game all over the world, in all kinds of structures!
 
 Please take a look through our unit tests for the NonFungibleCollectible contract and let us know what you think. We are also very keen to hear ideas about the best way to actually render images on the frontend in a slick and nevertheless artistic way.
-
-
-
