@@ -6,6 +6,9 @@ import {
 } from './initialState'
 
 const reducer = (state = initialState, action) => {
+
+  if (action.type === '@@INIT') return initialState
+
   switch (action.type) {
     case actions.LOADING_KEYWORD:
       return {

@@ -1,4 +1,6 @@
 import Web3 from 'web3'
+const Promise = require('bluebird')
+
 
 let getWeb3 = new Promise(function(resolve, reject) {
   // Wait for loading completion to avoid race conditions with web3 injection timing.
@@ -11,6 +13,9 @@ let getWeb3 = new Promise(function(resolve, reject) {
       // Use Mist/MetaMask's provider.
       web3 = new Web3(web3.currentProvider)
 
+      if (typeof web3.eth.getAccountsPromise === 'undefined') {
+        Promise.promisifyAll(web3.eth, { suffix: 'Promise' });
+      }
       results = {
         web3: web3
       }

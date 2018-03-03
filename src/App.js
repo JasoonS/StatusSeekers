@@ -7,7 +7,7 @@ import KeywordOrganizer from './components/KeywordOrganizer'
 import CopyKeywords from './components/CopyKeywords'
 
 import { connect } from 'react-redux'
-import { addKeyword, moveKeywordInList } from './actions'
+import { fetchKeyword, moveKeywordInList } from './actions'
 import './css/oswald.css'
 import './css/open-sans.css'
 import './css/pure-min.css'
@@ -23,15 +23,20 @@ class App extends Component {
       statusSeeker: null,
     }
 
-    this.getKeyWord = this.getKeyWord.bind(this);
+    this.getKeyWordCurry = this.getKeyWordCurry.bind(this);
   }
 
   componentDidMount() {
     getWeb3
+      .then(async results => {
+        results.accounts = await results.web3.eth.getAccountsPromise()
+        return results
+      })
       .then(results => {
         this.setState({
           web3: results.web3,
-          statusSeeker: statusSeekerContract.withProvider(results.web3.currentProvider)
+          statusSeeker: statusSeekerContract.withProvider(results.web3.currentProvider),
+          accounts: results.accounts
         })
       })
       .catch((err) => {
@@ -39,9 +44,12 @@ class App extends Component {
       })
   }
 
-  getKeyWord(e) {
-    e.preventDefault()
-    this.props.dispatch(addKeyword(this.state.statusSeeker))
+  getKeyWordCurry(web3) {
+    const self = this
+    return e => {
+      e.preventDefault()
+      this.props.dispatch(fetchKeyword(self.state.statusSeeker, web3, self.state.accounts))
+    }
   }
 
   _renderGame = () => {
@@ -60,7 +68,7 @@ class App extends Component {
         <div className="button-kw-container">
           {currentKeyword.isFetching ?
             <Loading size="27px" margin="4px"/>
-            : <button className="button-kw" onClick={this.getKeyWord}>Get Key Word</button>}
+            : <button className="button-kw" onClick={this.getKeyWordCurry(this.state.web3)}>Get Key Word</button>}
         </div>
         {wordList.length > 0 &&
           <div>
