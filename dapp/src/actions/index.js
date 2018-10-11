@@ -1,5 +1,6 @@
 import Web3 from 'web3'
-import { computeNonceSignature } from '../../SeekerBackend/utils/tokenIssue'
+// TODO: move this to a library - #4
+import { computeNonceSignature } from '../../../backend/utils/tokenIssue'
 
 export const actions = {
   LOADING_KEYWORD: 'LOADING_KEYWORD',
