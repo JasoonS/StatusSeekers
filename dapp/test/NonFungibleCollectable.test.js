@@ -1,7 +1,7 @@
 const assertRevert = require('./helpers/assertRevert')
 const BigNumber = web3.BigNumber
 const { generateRandomInLevel, getEdgeCaseLevels } = require('./helpers/generateRandomInLevel')
-const { computeMintedSignature, computeLevelSignature } = require('../SeekerBackend/utils/tokenIssue.js')
+const { computeMintedSignature, computeLevelSignature } = require('../../backend/utils/tokenIssue.js')
 const NonFungibleToken = artifacts.require('NonFungibleCollectable.sol')
 const Promise = require('bluebird');
 
